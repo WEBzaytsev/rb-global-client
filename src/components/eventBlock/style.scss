@@ -1,0 +1,166 @@
+.event-block {
+  border: 3px solid #5465ff;
+  padding: 24px 24px 30px;
+  color: #000;
+  margin-bottom: 33px;
+  @media (min-width: 768px) {
+    margin-bottom: 0;
+    padding: 0;
+    padding-top: 24px;
+    padding-bottom: 19px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  @media (min-width: 1280px) {
+    padding-bottom: 16px;
+  }
+  &:last-child {
+    margin-bottom: 0;
+  }
+  &-number {
+    font-family: "JetBrains Mono", sans-serif;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    margin-bottom: 8px;
+    text-align: center;
+  }
+  &-month {
+    font-family: "Nekst", sans-serif;
+    font-size: 32px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    text-align: center;
+  }
+  &-day {
+    text-align: center;
+    font-family: "Nekst", sans-serif;
+    font-size: 152px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 184px;
+    margin-top: -10.5px;
+    @media (min-width: 1280px) {
+      font-size: 184px;
+      margin-bottom: 8px;
+    }
+  }
+  &-dayWeek {
+    text-align: center;
+    font-family: "Nekst", sans-serif;
+    font-size: 26px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    margin-bottom: 23px;
+    @media (min-width: 1280px) {
+      font-size: 32px;
+      margin-bottom: 16px;
+    }
+  }
+  &-location {
+    text-align: center;
+    font-family: "JetBrains Mono", sans-serif;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    margin-bottom: 11px;
+    @media (min-width: 1280px) {
+      margin-bottom: 8px;
+    }
+  }
+  &-time {
+    font-family: "JetBrains Mono", sans-serif;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    margin-bottom: 19px;
+    text-align: center;
+    @media (min-width: 1280px) {
+      margin-bottom: 16px;
+    }
+  }
+  &-btn {
+    display: block;
+    padding: 8px 0px;
+    background: #5465ff;
+    width: 100%;
+    font-family: "JetBrains Mono", sans-serif;
+    font-size: 17px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    color: #fff;
+    text-align: center;
+    @media (min-width: 768px) {
+      font-size: 13px;
+      padding: 8px 16px;
+      display: inline-block;
+      width: auto;
+    }
+    @media (min-width: 1280px) {
+      font-size: 15px;
+    }
+  }
+}
+
+.event-list {
+  display: flex;
+  flex-direction: column;
+  @media (min-width: 768px) {
+    flex-direction: row;
+    column-gap: 33px;
+  }
+}
+
+.content-text {
+  .line {
+    height: 3px;
+    background: #5465ff;
+    width: 100%;
+    margin: 64px 0;
+    @media (min-width: 768px) {
+      margin: 48px 0;
+    }
+    @media (min-width: 1024px) {
+      margin: 56px 0;
+    }
+  }
+  .title--next {
+    font-family: "Nekst", sans-serif;
+    font-size: 32px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    margin-bottom: 24px;
+    @media (min-width: 768px) {
+      text-align: center;
+      margin-bottom: 32px;
+    }
+  }
+}
+
+.btn-project-founders {
+  font-family: "JetBrains Mono", sans-serif;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  background: #5465ff;
+  width: 100%;
+  display: block;
+  padding: 16px 0;
+  color: #fff;
+  text-align: center;
+  @media (min-width: 768px) {
+    padding: 16px 48px;
+    width: auto;
+    display: inline-block;
+  }
+}

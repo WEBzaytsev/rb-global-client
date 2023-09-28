@@ -1,0 +1,39 @@
+.tags {
+  margin-top: 32px;
+  @media (min-width: 768px) {
+    margin-top: 24px;
+  }
+  @media (min-width: 1024px) {
+    margin-top: 32px;
+  }
+  @media (min-width: 1280px) {
+    margin-top: 40px;
+  }
+  &-title {
+    margin-bottom: 16px;
+    font-family: "Zona Pro", sans-serif;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 800;
+    line-height: 22px;
+    letter-spacing: 0.16px;
+  }
+  &-list {
+    display: flex;
+    flex-wrap: wrap;
+    column-gap: 16px;
+    row-gap: 16px;
+    a {
+      padding: 4px 16px 6px 16px;
+      display: block;
+      background-color: #b8932b;
+      font-family: "Zona Pro", sans-serif;
+      font-size: 16px;
+      font-style: normal;
+      font-weight: 800;
+      line-height: 22px;
+      letter-spacing: 0.16px;
+      color: #fff;
+    }
+  }
+}

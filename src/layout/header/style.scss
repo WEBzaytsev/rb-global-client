@@ -1,0 +1,129 @@
+.header {
+  padding-top: 32px;
+  margin-bottom: 48px;
+  background-color: #fff;
+  @media (min-width: 1024px) {
+    background: none;
+  }
+  &.active {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 999;
+    overflow: scroll;
+    padding-bottom: 122px;
+    height: 100%;
+    .sidebar-ad {
+      margin-left: 12px;
+      @media (min-width: 768px) {
+        margin-left: 40px;
+      }
+    }
+    .sidebar-menu {
+      padding: 0 12px;
+      @media (min-width: 768px) {
+        padding: 0 40px;
+        row-gap: 24px;
+        a {
+          font-size: 24px;
+          line-height: 32px;
+        }
+      }
+    }
+    .container {
+      box-shadow: 0px 4px 0px 0px rgba(0, 0, 0, 0.2);
+      margin-bottom: 24px;
+      @media (min-width: 768px) {
+        padding-bottom: 16px;
+      }
+    }
+    .header-right {
+      padding-bottom: 16px;
+      @media (min-width: 768px) {
+        padding-bottom: 0;
+      }
+    }
+  }
+  @media (max-width: 1279px) {
+    padding-top: 24px;
+    margin-bottom: 40px;
+  }
+  @media (max-width: 1023px) {
+    margin-bottom: 32px;
+    padding: 16px 0;
+    box-shadow: 0px 4px 0px 0px rgba(0, 0, 0, 0.2);
+  }
+  @media (max-width: 767px) {
+    margin-bottom: 24px;
+  }
+  &-logo {
+    &-col {
+      grid-column: 3 span;
+      @media (min-width: 768px) {
+        grid-column: 4 span;
+      }
+      @media (min-width: 1024px) {
+        grid-column: 3 span;
+      }
+      @media (min-width: 1440px) {
+        grid-column: 4 span;
+      }
+    }
+    width: 100%;
+    max-width: 118px;
+    display: block;
+    @media (min-width: 768px) {
+      max-width: 178px;
+    }
+    img {
+      width: 100%;
+      display: block;
+    }
+  }
+  .icon-burger {
+    display: block;
+    position: absolute;
+    right: 0;
+    top: 12px;
+    right: 12px;
+    @media (min-width: 768px) {
+      top: 20px;
+    }
+    @media (min-width: 1024px) {
+      display: none;
+    }
+  }
+  &-right {
+    grid-column: 3 span;
+    display: flex;
+    align-items: center;
+    @media (min-width: 768px) {
+      grid-column: 8 span;
+    }
+    @media (min-width: 1024px) {
+      grid-column: 9 span;
+    }
+    @media (min-width: 1440px) {
+      grid-column: 8 span;
+    }
+  }
+  &-slogan {
+    font-family: "Zona Pro", sans-serif;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 800;
+    line-height: 22px;
+    letter-spacing: 0.16px;
+    margin-top: 16px;
+    @media (min-width: 768px) {
+      font-size: 24px;
+      line-height: 32px;
+      margin-top: 0;
+    }
+    @media (min-width: 1024px) {
+      font-size: 32px;
+      line-height: 40px;
+    }
+  }
+}

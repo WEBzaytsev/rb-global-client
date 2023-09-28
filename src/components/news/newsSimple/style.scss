@@ -1,0 +1,38 @@
+.news {
+  margin-top: 32px;
+  display: block;
+  &:first-child {
+    margin-top: 0;
+  }
+  &-content {
+    display: flex;
+    flex-direction: column;
+  }
+  &-date {
+    color: #999;
+    font-family: "Inter", sans-serif;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 22px;
+    letter-spacing: -0.28px;
+    margin-bottom: 4px;
+  }
+  &-title {
+    font-family: "Zona Pro", sans-serif;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 800;
+    line-height: 22px;
+    letter-spacing: 0.16px;
+    margin-bottom: 6px;
+  }
+  &-desc {
+    font-family: "Inter", sans-serif;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 22px;
+    letter-spacing: -0.28px;
+  }
+}
