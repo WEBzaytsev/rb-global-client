@@ -1,0 +1,78 @@
+.news-event {
+  margin: 40px 0;
+  border: 2px solid #ad475c;
+  background: #fff;
+  padding: 0 24px 32px;
+  display: flex;
+  flex-direction: column;
+  @media (min-width: 768px) {
+    flex-direction: row;
+    justify-content: space-between;
+    margin: 56px 0;
+    padding: 0 48px 32px;
+  }
+  @media (min-width: 1024px) {
+    padding-right: 24px;
+  }
+  @media (min-width: 1280px) {
+    padding-right: 40px;
+  }
+  .news-info {
+    margin-top: 24px;
+    &__city {
+      color: #ad475c;
+      font-family: "Zona Pro", sans-serif;
+      font-size: 40px;
+      font-style: normal;
+      font-weight: 800;
+      line-height: 56px;
+      letter-spacing: -0.8px;
+      margin-bottom: 8px;
+    }
+    &__date {
+      color: #ad475c;
+      font-family: "Zona Pro", sans-serif;
+      font-size: 24px;
+      font-style: normal;
+      font-weight: 800;
+      line-height: 32px;
+    }
+  }
+  .news-content {
+    margin-top: 20px;
+    width: 100%;
+    max-width: 100%;
+    @media (min-width: 768px) {
+      // max-width: 352px;
+      margin-left: 110px;
+      margin-top: 32px;
+    }
+    @media (min-width: 1280px) {
+      // max-width: 476px;
+      margin-left: 114px;
+    }
+    .news-title {
+      color: #000;
+      font-family: "Zona Pro", sans-serif;
+      font-size: 16px;
+      font-style: normal;
+      font-weight: 800;
+      line-height: 22px;
+      letter-spacing: 0.16px;
+      margin-bottom: 24px;
+      @media (min-width: 1280px) {
+        margin-bottom: 46px;
+      }
+    }
+    .news-desc {
+      color: #000;
+      font-family: "Inter", sans-serif;
+      font-size: 14px;
+      font-style: normal;
+      font-weight: 500;
+      line-height: 22px;
+      letter-spacing: -0.28px;
+      text-decoration: underline;
+    }
+  }
+}
