@@ -8,7 +8,7 @@ const FoundersPage = () => {
 
     const [articles, setArticles] = useState<any>([]);
     const [limit, setLimit] = useState<number>(3);
-    let api = (import.meta.env.MODE == 'development') ? 'http://localhost:3000' : 'https://rb.ru';
+    let api = (import.meta.env.MODE == 'development') ? 'http://localhost:3001' : 'https://rb.ru';
 
     useEffect(() => {
         const fetchData = async () => {

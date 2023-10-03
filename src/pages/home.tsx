@@ -13,19 +13,9 @@ const HomePage = () => {
     const [listPost, setListPost] = useState<any>([]);
     const [limit, setLimit] = useState<number>(5);
 
-    let api = (import.meta.env.MODE == 'development') ? 'http://localhost:3000' : 'https://rb.ru';
+    let api = (import.meta.env.MODE == 'development') ? 'https://dev.rusbase.com' : 'https://rb.ru';
     useEffect(() => {
         const fetchData = async () => {
-            
-            await fetch(`https://api.kazanexpress.ru/api/main/root-categories?eco=false`, {
-                method: "GET",
-                headers: {
-                    "access-control-allow-origin" : "*",
-                    "Content-type": "application/json; charset=UTF-8",
-                    "Authorization": "Basic a2F6YW5leHByZXNzLWN1c3RvbWVyOmN1c3RvbWVyU2VjcmV0S2V5",
-                    "X-Iid": "4782196d-6040-4a97-afa7-0bdefa0f94d5"
-                }
-            });
 
             const response = await fetch(`${api}/api/articles?tag=${tag}&limit=${limit}`, {
                 method: "GET",
