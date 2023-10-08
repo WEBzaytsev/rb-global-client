@@ -4,6 +4,7 @@ import lineGray from '@/assets/relocation-line-gray.png';
 import lineGold from '@/assets/relocation-line-gold.png';
 import { useState, useLayoutEffect } from "react";
 import edjsHTML from 'editorjs-html';
+import {getPostDataById} from "../utils/getApiUrl.ts";
 
 const edjsParser = edjsHTML();
 
@@ -14,7 +15,8 @@ const RelocationMapPage = () => {
     const postId = 5;
     useLayoutEffect(() => {
         const fetchData = async () => {
-            const response = await fetch(`http://localhost:3000/api/v1/posts/${postId}`, {
+            const url = getPostDataById(postId);
+            const response = await fetch(url, {
                 method: "GET",
                 headers: {
                     "access-control-allow-origin" : "*",

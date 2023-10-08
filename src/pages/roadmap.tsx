@@ -2,6 +2,7 @@ import Layout from "../layout";
 import roadMap from '@/assets/roadmap.png';
 import {useLayoutEffect, useState} from "react";
 import edjsHTML from 'editorjs-html';
+import {getPostDataById} from "../utils/getApiUrl.ts";
 
 const edjsParser = edjsHTML();
 
@@ -13,7 +14,8 @@ const RoadMapPage = () => {
 
     useLayoutEffect(() => {
         const fetchData = async () => {
-            const response = await fetch(`http://localhost:3000/api/v1/posts/${postId}`, {
+            const url = getPostDataById(postId);
+            const response = await fetch(url, {
                 method: "GET",
                 headers: {
                     "access-control-allow-origin" : "*",
