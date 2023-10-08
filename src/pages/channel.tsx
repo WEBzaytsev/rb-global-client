@@ -3,6 +3,7 @@ import logoChannel from '@/assets/channel/logo-channel.png';
 import bgChannel from '@/assets/channel/bg-channel.png';
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import edjsHTML from 'editorjs-html';
+import {getPostDataById} from "../utils/getApiUrl.ts";
 
 const edjsParser = edjsHTML();
 
@@ -14,7 +15,8 @@ const ChannelPage = () => {
     const postId = 2;
     useLayoutEffect(() => {
         const fetchData = async () => {
-            const response = await fetch(`http://localhost:3000/api/v1/posts/${postId}`, {
+            const url = getPostDataById(postId);
+            const response = await fetch(url, {
                 method: "GET",
                 headers: {
                     "access-control-allow-origin" : "*",
