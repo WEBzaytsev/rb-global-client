@@ -11,7 +11,7 @@ const ChannelPage = () => {
     const [title, setTitle] = useState('');
     const [loading, setLoading] = useState(true);
     const ref = useRef();
-    const postId = 20;
+    const postId = 2;
     useLayoutEffect(() => {
         const fetchData = async () => {
             const response = await fetch(`http://localhost:3000/api/v1/posts/${postId}`, {
