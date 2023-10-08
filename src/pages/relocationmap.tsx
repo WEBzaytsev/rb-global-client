@@ -11,7 +11,7 @@ const RelocationMapPage = () => {
     const [content, setContent] = useState<any[]>();
     const [title, setTitle] = useState('');
     const [loading, setLoading] = useState(true);
-    const postId = 17;
+    const postId = 5;
     useLayoutEffect(() => {
         const fetchData = async () => {
             const response = await fetch(`http://localhost:3000/api/v1/posts/${postId}`, {
