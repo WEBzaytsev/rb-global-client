@@ -43,8 +43,7 @@ const RelocationMapPage = () => {
             <div className="content-text content--relocation">
                 <div className="title">{title}</div>
                 <div className="relocatin-block-text">
-                    <div className="description"  dangerouslySetInnerHTML={formattedHtml() as unknown as { __html: string }}>
-                    </div>
+                    <div className="description"  dangerouslySetInnerHTML={formattedHtml() as unknown as { __html: string }} />
                     <a href="#" className="btn">Перейти к проекту</a>
                     <div className="relocation-block-img">
                         <div className="relocation-line relocation-line--gray">
