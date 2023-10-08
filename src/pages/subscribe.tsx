@@ -2,18 +2,50 @@ import TagsBlock from "../components/tags";
 import Layout from "../layout";
 
 import hashtagSubs from '@/assets/hashtag.svg';
+import {useLayoutEffect, useRef, useState} from "react";
+import edjsHTML from 'editorjs-html';
+
+const edjsParser = edjsHTML();
 
 const SubscribePage = () => {
+    const [content, setContent] = useState<any[]>();
+    const [title, setTitle] = useState('');
+    const [loading, setLoading] = useState(true);
+    const postId = 3;
+
+    useLayoutEffect(() => {
+        const fetchData = async () => {
+            const response = await fetch(`http://localhost:3000/api/v1/posts/${postId}`, {
+                method: "GET",
+                headers: {
+                    "access-control-allow-origin" : "*",
+                    "Content-type": "application/json; charset=UTF-8"
+                }
+            });
+            const newData = await response.json();
+            setTitle(newData.title);
+            const html = edjsParser.parse(newData.content);
+            setContent(html);
+            setLoading(false);
+        };
+        fetchData();
+    }, [])
+
+    if(loading) {
+        return (
+            <Layout>
+                Загрузка...
+            </Layout>
+        )
+    }
+
+    const formattedHtml = () => { return {__html:  content?.map((item: any) => {return item}).join("")}; };
+
     return (
         <Layout>
             <div className="content-text">
-                <div className="title">Подписки по тегам</div>
-                <div className="title-h2">Как подписаться на новости и статьи по конкретной стране?</div>
-                <div className="description">RB.RU предлагает актуальный сервис для пользователей — теперь вы можете подписаться на интересные вам темы и получать подборку свежих материалов раз в неделю на email.</div>
-                <div className="paragraph">
-                    <p>Сервис доступен для авторизованных пользователей RB.RU с заполненным email. Вы можете выбрать для подписки любой тег: выберите тег из списка  и перейдите на страницу тега. В шапке вы увидите возможность подписаться на тему или отменить подписку, если вы до этого были подписаны на тег. </p>
-                    <p>Раз в неделю вы будете получать письмо с подборкой материалов по всем тегам, на которые вы подписаны, за последние 7 дней, если были тематические новости. Рекомендуем добавить адрес отправителя — <a className="text-link" href="mailto:news@rb.ru">news@rb.ru</a> — в контакты в своем почтовом клиенте, чтобы письма не попадали в спам.</p>
-                </div>
+                <div className="title">{title}</div>
+                <div className="paragraph" dangerouslySetInnerHTML={formattedHtml() as unknown as { __html: string }} />
                 <TagsBlock />
             </div>
             <div className="hashtag">
