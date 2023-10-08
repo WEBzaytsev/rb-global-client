@@ -42,8 +42,7 @@ const ChannelPage = () => {
         <Layout>
             <div className="content-text">
                 <div className="title">{title}</div>
-                <div className="paragraph" dangerouslySetInnerHTML={formattedHtml() as unknown as { __html: string }}>
-                </div>
+                <div className="paragraph" dangerouslySetInnerHTML={formattedHtml() as unknown as { __html: string }} />
                 <a href="#" className="btn">Подключиться!</a>
                 <div className="logo-channel">
                     <img src={logoChannel} alt="" />
