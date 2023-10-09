@@ -7,6 +7,10 @@ import rightLine from '@/assets/right-line.png';
 import { useEffect, useState } from "react";
 import NewsEvent from "../components/news/newsEvent";
 
+const username = 'global';
+const password = 'reactvue';
+const credentials = btoa(`${username}:${password}`);
+
 const HomePage = () => {
     let tag = 59229;
     const [articles, setArticles] = useState<any>([]);
@@ -21,7 +25,8 @@ const HomePage = () => {
                 method: "GET",
                 headers: {
                     "access-control-allow-origin" : "*",
-                    "Content-type": "application/json; charset=UTF-8"
+                    "Content-type": "application/json; charset=UTF-8",
+                    "Authorization": `Basic ${credentials}`
                 }
             });
             const newData = await response.json();
@@ -36,7 +41,8 @@ const HomePage = () => {
                 method: "GET",
                 headers: {
                     "access-control-allow-origin" : "*",
-                    "Content-type": "application/json; charset=UTF-8"
+                    "Content-type": "application/json; charset=UTF-8",
+                    "Authorization": `Basic ${credentials}`
                 }
             });
             const newData = await response.json();
