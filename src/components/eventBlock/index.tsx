@@ -1,16 +1,38 @@
 import './style.scss';
+import {RbEvent} from "../../types";
 
-const EventBlock = () => {
+interface eventProps {
+    event: RbEvent
+}
+
+const locale = 'ru-RU';
+
+const EventBlock = (eventProps: eventProps) => {
+    const {event} = eventProps;
+    const inputDate = new Date(event.date);
+
     return (
-        <div className="event-block">
-            <div className="event-block-number">№44</div>
-            <div className="event-block-month">июнь</div>
-            <div className="event-block-day">19</div>
-            <div className="event-block-dayWeek">понедельник</div>
-            <div className="event-block-location">London, United Kingdom</div>
-            <div className="event-block-time">18:00</div>
-            <a href="" className="event-block-btn">Зарегистрироваться</a>
-        </div>
+        <>
+            {!isNaN(inputDate.getTime()) && (
+                <div className="event-block">
+                    <div className="event-block-number">{`№${event.number}`}</div>
+                    <div className="event-block-month">
+                        {inputDate.toLocaleDateString(locale, {month: 'long'})}
+                    </div>
+                    <div className="event-block-day">
+                        {inputDate.getDate()}
+                    </div>
+                    <div className="event-block-dayWeek">
+                        {inputDate.toLocaleDateString(locale, { weekday: 'long' })}
+                    </div>
+                    <div className="event-block-location">{event.place}</div>
+                    <div className="event-block-time">
+                        {inputDate.toLocaleTimeString(locale, { hour: '2-digit', minute: '2-digit' })}
+                    </div>
+                    <a href={event.url} className="event-block-btn">Зарегистрироваться</a>
+                </div>
+            )}
+        </>
     )
 }
 
