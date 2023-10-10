@@ -1,11 +1,13 @@
 import './style.scss';
 
-type IProps = {
+interface Props {
     url: string,
     urlImg: string
 }
 
-const ImgBanner = ({url, urlImg}: IProps) => {
+const ImgBanner = (props: Props) => {
+    const {url, urlImg} = props;
+
     return (
         <a href={url} className="img-banner">
             <img src={urlImg} />

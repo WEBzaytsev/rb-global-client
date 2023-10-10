@@ -1,15 +1,17 @@
 import './style.scss';
+// TODO: remove moment.js
 import moment from "moment";
 import 'moment/dist/locale/ru';
-type IProps = {
+interface Props {
     image: string,
     title: string,
     url: string,
     timestamp: number
 }
 
-const FounderBlock = ({...props}: IProps) => {
+const FounderBlock = (props: Props) => {
     const {image, title, url, timestamp} = props;
+
     const date = new Date(timestamp * 1000);
     return (
         <a href={url} target='_blank' className="founders-block">

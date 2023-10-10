@@ -1,9 +1,3 @@
-export type IState = {
-  toggle: {
-    value: boolean;
-  };
-};
-
 export interface RbEvent {
   id: number,
   number: number,

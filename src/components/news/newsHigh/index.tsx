@@ -1,10 +1,11 @@
+// TODO: remove moment.js
 import moment from "moment";
 import 'moment/dist/locale/ru';
 import './style.scss';
 
 moment.locale('ru');
 
-type IProps = {
+interface Props {
     title: string,
     category: {
         name: string
@@ -15,9 +16,10 @@ type IProps = {
     short_description: string
 }
 
-const NewsHigh = ({...props}: IProps) => {
+const NewsHigh = (props: Props) => {
     const {title, category, image, url, timestamp, short_description } = props;
     const date = new Date(timestamp * 1000);
+
     return (
         <a href={url} target="_blank" className="news-high">
             <div className="news-high-img">

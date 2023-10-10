@@ -1,14 +1,14 @@
 import './style.scss';
-import {RbEvent} from "../../types";
+import {RbEvent} from "../../types/RbEvent.ts";
 
-interface eventProps {
+interface Props {
     event: RbEvent
 }
 
 const locale = 'ru-RU';
 
-const EventBlock = (eventProps: eventProps) => {
-    const {event} = eventProps;
+const EventBlock = (props: Props) => {
+    const {event} = props;
     const inputDate = new Date(event.date);
 
     return (

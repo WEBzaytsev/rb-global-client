@@ -1,6 +1,8 @@
 import './style.scss';
 import { NavLink } from 'react-router-dom'
-export const menuList = [
+import {MenuItem} from "../../types/MenuItem.ts";
+
+export const menuList: MenuItem[] = [
     {
         name: "Главная",
         path: '/',
@@ -9,10 +11,6 @@ export const menuList = [
         name: "Founders Mondays",
         path: '/founders/',
     },
-    // {
-    //     name: "RB Mates",
-    //     path: '/rbmates/',
-    // },
     {
         name: "Канал Приехали",
         path: '/channel/',
@@ -21,10 +19,6 @@ export const menuList = [
         name: "Подписки по тегам",
         path: '/subscribe/',
     },
-    // {
-    //     name: "Кто где",
-    //     path: '/whoisho/',
-    // },
     {
         name: "Куда ехать",
         path: '/roadmap/',
@@ -38,12 +32,19 @@ export const menuList = [
         path: '/about/',
     }
 ]
+
 const Sidebar = () => {
     return (
         <div className='sidebar'>
             <div className="sidebar-menu">
-                {menuList.map((item: any) => (
-                    <NavLink to={item.path} className={({ isActive }) => (isActive ? 'active' : '')}>{item.name}</NavLink>
+                {menuList.map((item: MenuItem, idx: number) => (
+                    <NavLink
+                        key={idx}
+                        to={item.path}
+                        className={({ isActive }) => (isActive ? 'active' : '')}
+                    >
+                        {item.name}
+                    </NavLink>
                 ))}
             </div>
             <div className="sidebar-ad">

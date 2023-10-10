@@ -5,7 +5,9 @@ import CloseIcon from '@/components/icons/close';
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 import { NavLink } from 'react-router-dom'
 import { menuList } from '../sidebar';
-type IState = {
+import {MenuItem} from "../../types/MenuItem.ts";
+
+interface IState {
     toggle: {
         value: boolean;
     }
@@ -15,14 +17,14 @@ const Header = () => {
     const openMenu = useAppSelector((state: IState) => state.toggle.value);
     const dispatch = useAppDispatch();
 
-    const clickHendler = () => {
+    const clickHandler = () => {
         dispatch({type: "toggle/toggleMenu", payload: !openMenu});
-        document.querySelector('body')?.classList.toggle('active');
+        document.body.classList.toggle('active');
     }
 
     const closeMenu = () => {
         dispatch({type: "toggle/toggleMenu", payload: !openMenu});
-        document.querySelector('body')?.classList.remove('active');
+        document.body.classList.remove('active');
     }
 
     return (
@@ -36,7 +38,7 @@ const Header = () => {
                     </div>
                     <div className='header-right'>
                         <div className="header-slogan">Помогаем бизнесу расти</div>
-                        <div onClick={() => clickHendler()}>
+                        <div onClick={clickHandler}>
                             {openMenu ? <CloseIcon /> : <BurgerIcon />}
                         </div>
                     </div>
@@ -45,13 +47,18 @@ const Header = () => {
             {openMenu && (
                 <>
                     <div className="sidebar-menu">
-                        {menuList.map((item: any) => (
-                            <NavLink onClick={() => closeMenu()} to={item.path} className={({ isActive }) => (isActive ? 'active' : '')}>{item.name}</NavLink>
+                        {menuList.map((item: MenuItem) => (
+                            <NavLink
+                                onClick={closeMenu}
+                                to={item.path}
+                                className={({ isActive }) => (isActive ? 'active' : '')}
+                            >
+                                {item.name}
+                            </NavLink>
                         ))}
                     </div>
-                    <div className="sidebar-ad">
-                        Реклама
-                    </div>
+
+                    <div className="sidebar-ad">Реклама</div>
                 </>
             )}
         </header>
