@@ -111,10 +111,12 @@
 }
 
 .event-list {
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  row-gap: 20px;
+
   @media (min-width: 768px) {
-    flex-direction: row;
+    grid-template-columns: repeat(3, 1fr);
     column-gap: 33px;
   }
 }
