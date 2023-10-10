@@ -13,7 +13,7 @@ import FoundersPage from './pages/founders.tsx';
 import ChannelPage from './pages/channel.tsx';
 import SubscribePage from './pages/subscribe.tsx';
 import RoadMapPage from './pages/roadmap.tsx';
-import RelocationMapPage from './pages/relocationmap.tsx';
+import RelocationMapPage from './pages/relocationMap.tsx';
 import AboutPage from './pages/about.tsx';
 import ErrorPage from './pages/errorPage.tsx';
 

@@ -2,9 +2,10 @@ import Footer from "./footer";
 import Header from "./header";
 import Sidebar from "./sidebar";
 import './style.scss';
+import {ReactNode} from "react";
 
 interface Props {
-    children: string | JSX.Element | JSX.Element[];
+    children: string | ReactNode | ReactNode[];
 }
 
 const Layout = ({children}: Props) => {

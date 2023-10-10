@@ -5,11 +5,12 @@ import lineGold from '@/assets/relocation-line-gold.png';
 import { useState, useLayoutEffect } from "react";
 import edjsHTML from 'editorjs-html';
 import {getPostDataById} from "../utils/getApiUrl.ts";
+import {PageData} from "../types/PageData.ts";
 
 const edjsParser = edjsHTML();
 
 const RelocationMapPage = () => {
-    const [content, setContent] = useState<any[]>();
+    const [content, setContent] = useState<string[]>([]);
     const [title, setTitle] = useState('');
     const [loading, setLoading] = useState(true);
     const postId = 5;
@@ -23,7 +24,7 @@ const RelocationMapPage = () => {
                     "Content-type": "application/json; charset=UTF-8"
                 }
             });
-            const newData = await response.json();
+            const newData: PageData = await response.json();
             setTitle(newData.title);
             const html = edjsParser.parse(newData.content);
             setContent(html);
@@ -39,13 +40,15 @@ const RelocationMapPage = () => {
             </Layout>
         )
     }
-    const formattedHtml = () => { return {__html: content?.map((item: any) => {return item}).join(" ")}; };
+
+    const formattedHtml = { __html: content?.join(" ") }
+
     return (
         <Layout>
             <div className="content-text content--relocation">
                 <div className="title">{title}</div>
                 <div className="relocatin-block-text">
-                    <div className="description"  dangerouslySetInnerHTML={formattedHtml() as unknown as { __html: string }} />
+                    <div className="description"  dangerouslySetInnerHTML={formattedHtml} />
                     <a href="#" className="btn">Перейти к проекту</a>
                     <div className="relocation-block-img">
                         <div className="relocation-line relocation-line--gray">

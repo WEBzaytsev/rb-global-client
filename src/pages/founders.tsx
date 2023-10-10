@@ -2,19 +2,20 @@ import { useEffect, useState } from "react";
 import EventBlock from "../components/eventBlock";
 import FounderBlock from "../components/founderBlock";
 import Layout from "../layout";
-import {RbEvent} from "../types";
+import {RbEvent} from "../types/RbEvent.ts";
 
 const host = import.meta.env.VITE_HOST;
 const protocol = import.meta.env.VITE_PROTOCOL;
 const path = 'api/v1';
 
 const FoundersPage = () => {
-    let tag = 59335;
+    const tag = 59335;
+    const limit = 3;
+    const api = (import.meta.env.MODE == 'development') ? 'http://localhost:3001' : 'https://rb.ru';
 
-    const [articles, setArticles] = useState<any>([]);
+    // TODO: fix any
+    const [articles, setArticles] = useState<any[]>([]);
     const [events, setEvents] = useState<RbEvent[]>([]);
-    const [limit, setLimit] = useState<number>(3);
-    let api = (import.meta.env.MODE == 'development') ? 'http://localhost:3001' : 'https://rb.ru';
 
     useEffect(() => {
         const fetchData = async () => {
@@ -25,6 +26,8 @@ const FoundersPage = () => {
                     "Content-type": "application/json; charset=UTF-8"
                 }
             });
+
+            // TODO: set type newData
             const newData = await response.json();
             setArticles(newData.articles);
         };
@@ -38,34 +41,40 @@ const FoundersPage = () => {
                 }
             })
                 .then(res => res.json())
-                .then(data => setEvents(data));
+                .then((data: RbEvent[]) => setEvents(data));
         }
 
         fenchEvents();
         fetchData();
     }, [tag]);
 
+    const sortEventsByDate = (a: RbEvent, b: RbEvent) => new Date(a.date).getTime() - new Date(b.date).getTime();
+
     return (
         <Layout>
             <div className="content-text content--founders">
                 <div className="title">Founders Mondays</div>
                 <div className="founders-list">
+                    {/* TODO: fix any */}
                     {articles.map((item: any, key: number) => (
                         <FounderBlock {...item} key={key} />
                     ))}
-                    
                 </div>
+
                 <div className="title title--next">Следующие встречи</div>
+
                 {events.length && (
                     <div className="event-list">
                         {events
                             .filter((event: RbEvent) => event.isShow)
-                            .sort((a: RbEvent, b: RbEvent) => new Date(a.date).getTime() - new Date(b.date).getTime())
+                            .sort(sortEventsByDate)
                             .map((event: RbEvent) => (
-                            <EventBlock key={event.id} event={event} />
-                        ))}
+                                <EventBlock key={event.id} event={event} />
+                            ))
+                        }
                     </div>
                 )}
+
                 <hr className="line" />
                 <a href="#" className="btn-project-founders">Перейти к проекту</a>
             </div>

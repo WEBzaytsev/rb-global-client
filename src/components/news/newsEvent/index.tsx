@@ -1,21 +1,15 @@
 import { Link } from 'react-router-dom';
 import './style.scss';
+// TODO: remove moment.js
 import moment from "moment";
 
-type IProps = {
-    title: string,
-    category: {
-        name: string
-    },
-    image: string,
-    url: string,
+interface Props {
     timestamp: number,
     short_description: string
 }
 
-const NewsEvent = ({...props}: IProps) => {
-
-    const {title, category, image, url, timestamp, short_description } = props;
+const NewsEvent = (props: Props) => {
+    const {timestamp, short_description } = props;
     const date = new Date(timestamp * 1000);
 
     return (

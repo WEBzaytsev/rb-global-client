@@ -4,16 +4,17 @@ import './style.scss';
 
 moment.locale('ru');
 
-type IProps = {
+interface Props {
     title: string,
     url: string,
     timestamp: number,
     short_description: string
 }
 
-const News = ({...props}: IProps) => {
+const News = (props: Props) => {
     const {title, url, timestamp, short_description } = props;
     const date = new Date(timestamp * 1000);
+
     return (
         <a href={url} className='news'>
             <div className="news-content">
