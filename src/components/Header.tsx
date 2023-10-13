@@ -1,11 +1,10 @@
-import './style.scss';
 import logo from '@/assets/logo.svg';
 import BurgerIcon from '@/components/icons/burger';
 import CloseIcon from '@/components/icons/close';
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 import { NavLink } from 'react-router-dom'
-import { menuList } from '../sidebar';
-import {MenuItem} from "../../types/MenuItem.ts";
+import { menuList } from './Sidebar.tsx';
+import {MenuItem} from "../types/MenuItem.ts";
 
 interface IState {
     toggle: {

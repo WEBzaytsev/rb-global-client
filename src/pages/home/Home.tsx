@@ -1,17 +1,27 @@
-import News from "../components/news/newsSimple";
-import Layout from "../layout";
-import NewsHigh from "../components/news/newsHigh";
+import News from "../../components/news/newsSimple";
+import NewsHigh from "../../components/news/newsHigh";
 import bgEarth from '@/assets/earth.svg';
 import leftLine from '@/assets/left-line.png';
 import rightLine from '@/assets/right-line.png';
 import React, { useEffect, useState } from "react";
-import NewsEvent from "../components/news/newsEvent";
+import NewsEvent from "../../components/news/newsEvent";
+import {usePagesContext} from "../../providers/PagesProvider.tsx";
+import {Page} from "../../types/Page.ts";
 
 const username = 'global';
 const password = 'reactvue';
 const credentials = btoa(`${username}:${password}`);
 
-const HomePage = () => {
+const Home = ({id}: { id: number }) => {
+    const {pages} = usePagesContext();
+    const currentPage = pages.find((page: Page) => page.id === id) as Page;
+    console.log(currentPage.content)
+
+    const formattedHtml = (htmlToFormat) => {
+        const html = edjsParser.parse(htmlToFormat);
+        return {__html: html.join(" ")};
+    }
+
     const tag = 59229;
     const api = (import.meta.env.MODE == 'development') ? 'https://dev.rusbase.com' : 'https://rb.ru';
 
@@ -69,32 +79,29 @@ const HomePage = () => {
             <div className="right-line">
                 <img src={rightLine} alt="" />
             </div>
-            <Layout>
-                {
-                    // TODO: fix any
-                    articles.map((item: any, index: number) => (
-                        <>
-                            {
-                                index % 5 === 0 ?
-                                    <NewsHigh {...item} key={index} /> :
-                                    <News {...item} key={index} />
-                            }
-                            {index === 4 && <NewsEvent {...listPost[0]} />}
-                        </>
-                    ))
-                    
-                }
+            {
+                // TODO: fix any
+                articles.map((item: any, index: number) => (
+                    <>
+                        {
+                            index % 5 === 0 ?
+                                <NewsHigh {...item} key={index} /> :
+                                <News {...item} key={index} />
+                        }
+                        {index === 4 && <NewsEvent {...listPost[0]} />}
+                    </>
+                ))
+            }
 
-                <a
-                    href="/"
-                    className="load-more"
-                    onClick={(e: React.MouseEvent) => loadMore(e)}
-                >
-                    Показать еще
-                </a>
-            </Layout>
+            <a
+                href="/"
+                className="load-more"
+                onClick={(e: React.MouseEvent) => loadMore(e)}
+            >
+                Показать еще
+            </a>
         </>
     )
 }
 
-export default HomePage;
+export default Home;
