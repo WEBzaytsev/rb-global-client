@@ -2,7 +2,6 @@ import {useEffect, useState} from "react";
 import EventBlock from "../../components/eventBlock";
 import FounderBlock from "../../components/founderBlock";
 import {getArticles} from "../../api/rb-ru/getArticles.ts";
-// import {getPosts} from "../../api/admin/api.ts";
 /** Types */
 import {RbEvent} from "../../types/RbEvent.ts";
 import {usePagesContext} from "../../providers/PagesProvider.tsx";
@@ -13,10 +12,10 @@ const Founders = ({id}: { id: number }) => {
     const currentPage = pages.find((page: Page) => page.id === id) as Page;
     console.log(currentPage.content)
 
-    const formattedHtml = (htmlToFormat) => {
-        const html = edjsParser.parse(htmlToFormat);
-        return {__html: html.join(" ")};
-    }
+    // const formattedHtml = (htmlToFormat) => {
+    //     const html = edjsParser.parse(htmlToFormat);
+    //     return {__html: html.join(" ")};
+    // }
 
     const [loadingArticles, setLoadingArticles] = useState(true);
     const [loadingEvents, setLoadingEvents] = useState(true);
@@ -26,12 +25,22 @@ const Founders = ({id}: { id: number }) => {
 
     const fetchArticles = async (): Promise<boolean> => {
         const rbArticles = await getArticles(59335, 3);
+
+        // todo: fix types
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
         if (!rbArticles.articles || !rbArticles.articles.length) return false;
+        // todo: fix types
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
         setArticles(rbArticles.articles);
         return true;
     };
 
     const fetchEvents = async (): Promise<boolean> => {
+        // todo: fix types
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
         const rbEvents = await getPosts('events');
         if (rbEvents.status === false || rbEvents.code === 404) return false;
         setEvents(rbEvents);
@@ -39,9 +48,15 @@ const Founders = ({id}: { id: number }) => {
     }
 
     useEffect(() => {
+        // todo: fix types
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
         fetchEvents().then((res: Response): void => {
             if (res) setLoadingEvents(false);
         });
+        // todo: fix types
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
         fetchArticles().then((res: Response): void => {
             if (res) setLoadingArticles(false);
         });

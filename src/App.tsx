@@ -36,7 +36,7 @@ const App = () => {
                                         <Route
                                             key={page.slug}
                                             path={getPageSlug(page)}
-                                            element={PageComponents.get(page.title)(page.id)}
+                                            element={PageComponents.get(page.title)?.(page.id) || null}
                                         />
                                     )
                                 ))}
