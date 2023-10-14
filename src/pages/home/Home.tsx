@@ -17,10 +17,10 @@ const Home = ({id}: { id: number }) => {
     const currentPage = pages.find((page: Page) => page.id === id) as Page;
     console.log(currentPage.content)
 
-    const formattedHtml = (htmlToFormat) => {
-        const html = edjsParser.parse(htmlToFormat);
-        return {__html: html.join(" ")};
-    }
+    // const formattedHtml = (htmlToFormat) => {
+    //     const html = edjsParser.parse(htmlToFormat);
+    //     return {__html: html.join(" ")};
+    // }
 
     const tag = 59229;
     const api = (import.meta.env.MODE == 'development') ? 'https://dev.rusbase.com' : 'https://rb.ru';

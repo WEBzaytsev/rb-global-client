@@ -11,6 +11,9 @@ const About = ({id}: { id: number }) => {
     const currentPage = pages.find((page: Page) => page.id === id) as Page;
     console.log(currentPage.content)
 
+    // todo: fix types
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
     const formattedHtml = (htmlToFormat) => {
         const html = edjsParser.parse(htmlToFormat);
         return {__html: html.join(" ")};

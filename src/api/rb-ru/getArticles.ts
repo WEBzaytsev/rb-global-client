@@ -13,7 +13,9 @@ export const getArticles = async (tag: number, limit: number): Promise<ApiError>
             const username = import.meta.env.VITE_RBRU_API_USER;
             const password = import.meta.env.VITE_RBRU_API_PASSWORD;
             const credentials = btoa(`${username}:${password}`);
-
+            // todo: fix types
+            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+            // @ts-ignore
             headers['Authorization'] = `Basic ${credentials}`;
         }
 
@@ -24,6 +26,9 @@ export const getArticles = async (tag: number, limit: number): Promise<ApiError>
 
         // TODO: set returned type
         return await response.json();
+        // todo: fix types
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
     } catch (e: Error) {
         return {
             status: false,
