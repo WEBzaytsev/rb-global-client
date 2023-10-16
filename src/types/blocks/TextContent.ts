@@ -1,19 +1,7 @@
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-ignore
-import {OutputData} from "@editorjs/editorjs";
 import {BlockTypes} from "../BlockTypes.ts";
-
-export interface EditorCore {
-    destroy(): Promise<void>
-    clear(): Promise<void>
-    save(): Promise<OutputData>
-    render(data: OutputData): Promise<void>
-}
 
 export interface TextContent {
     id: number;
-    html: EditorCore | null;
+    html: string;
     blockType: BlockTypes.TEXT_CONTENT;
-    editorRef: EditorCore | null;
-    content: OutputData | undefined;
 }

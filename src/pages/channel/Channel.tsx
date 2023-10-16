@@ -1,4 +1,3 @@
-import edjsHTML from 'editorjs-html';
 /** Assets */
 import logoChannel from '@/assets/channel/logo-channel.png';
 import bgChannel from '@/assets/channel/bg-channel.png';
@@ -7,20 +6,9 @@ import {usePagesContext} from "../../providers/PagesProvider.tsx";
 import {Page} from "../../types/Page.ts";
 import {BlockTypes} from "../../types/BlockTypes.ts";
 
-const edjsParser = edjsHTML();
-
 const Channel = ({id}: { id: number }) => {
     const {pages} = usePagesContext();
     const currentPage = pages.find((page: Page) => page.id === id) as Page;
-    console.log(currentPage.content)
-
-    // todo: fix types
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
-    const formattedHtml = (htmlToFormat) => {
-        const html = edjsParser.parse(htmlToFormat);
-        return {__html: html.join(" ")};
-    }
 
     return (
         <>
@@ -32,7 +20,7 @@ const Channel = ({id}: { id: number }) => {
                         <div
                             key={idx}
                             className="paragraph"
-                            dangerouslySetInnerHTML={formattedHtml(block.html)}
+                            dangerouslySetInnerHTML={{__html: block.html}}
                         />
                     )
                 ))}
