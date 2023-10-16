@@ -1,4 +1,3 @@
-import edjsHTML from 'editorjs-html';
 import {usePagesContext} from "../../providers/PagesProvider.tsx";
 /** Assets */
 import recolationBg from '@/assets/relocationMap.png';
@@ -8,20 +7,9 @@ import lineGold from '@/assets/relocation-line-gold.png';
 import {Page} from "../../types/Page.ts";
 import {BlockTypes} from "../../types/BlockTypes.ts";
 
-const edjsParser = edjsHTML();
-
 const RelocationMap = ({id}: { id: number }) => {
     const {pages} = usePagesContext();
     const currentPage = pages.find((page: Page) => page.id === id) as Page;
-    console.log(currentPage.content)
-
-    // todo: fix types
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
-    const formattedHtml = (htmlToFormat) => {
-        const html = edjsParser.parse(htmlToFormat);
-        return {__html: html.join(" ")};
-    }
 
     return (
         <div className="content-text content--relocation">
@@ -32,7 +20,7 @@ const RelocationMap = ({id}: { id: number }) => {
                         <div
                             key={idx}
                             className="paragraph"
-                            dangerouslySetInnerHTML={formattedHtml(block.html)}
+                            dangerouslySetInnerHTML={{__html: block.html}}
                         />
                     )
                 ))}

@@ -1,4 +1,3 @@
-import edjsHTML from 'editorjs-html';
 import {usePagesContext} from "../../providers/PagesProvider.tsx";
 /** Assets */
 import roadMap from '@/assets/roadmap.png';
@@ -6,20 +5,9 @@ import roadMap from '@/assets/roadmap.png';
 import {BlockTypes} from "../../types/BlockTypes.ts";
 import {Page} from "../../types/Page.ts";
 
-const edjsParser = edjsHTML();
-
 const Roadmap = ({id}: { id: number }) => {
     const {pages} = usePagesContext();
     const currentPage = pages.find((page: Page) => page.id === id) as Page;
-    console.log(currentPage.content)
-
-    // todo: fix types
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
-    const formattedHtml = (htmlToFormat) => {
-        const html = edjsParser.parse(htmlToFormat);
-        return {__html: html.join(" ")};
-    }
 
     return (
         <>
@@ -30,7 +18,7 @@ const Roadmap = ({id}: { id: number }) => {
                         <div
                             key={idx}
                             className="paragraph"
-                            dangerouslySetInnerHTML={formattedHtml(block.html)}
+                            dangerouslySetInnerHTML={{__html: block.html}}
                         />
                     )
                 ))}
