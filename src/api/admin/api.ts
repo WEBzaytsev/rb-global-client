@@ -3,12 +3,7 @@
 // import {PostType} from "../../types/PostType.ts";
 // import {PageData} from "../../types/PageData.ts";
 import {Page} from "../../types/Page.ts";
-
-const protocol = import.meta.env.VITE_API_PROTOCOL;
-const hostname = import.meta.env.VITE_API_HOSTNAME;
-const port = import.meta.env.VITE_API_PORT;
-const pathname = import.meta.env.VITE_API_PATHNAME;
-const baseUrl = `${protocol}://${hostname}:${port}/${pathname}`;
+import {baseUrl} from "../index.ts";
 
 export const getPages = async (): Promise<Page[]> => {
     const url = baseUrl + 'pages';
