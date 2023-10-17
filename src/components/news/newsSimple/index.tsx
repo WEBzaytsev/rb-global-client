@@ -1,18 +1,16 @@
 import moment from "moment";
 import 'moment/dist/locale/ru';
 import './style.scss';
+import {RbArticle} from "../../../types/RbArticle.ts";
 
 moment.locale('ru');
 
 interface Props {
-    title: string,
-    url: string,
-    timestamp: number,
-    short_description: string
+    article: RbArticle;
 }
 
 const News = (props: Props) => {
-    const {title, url, timestamp, short_description } = props;
+    const {title, url, timestamp, short_description } = props.article;
     const date = new Date(timestamp * 1000);
 
     return (

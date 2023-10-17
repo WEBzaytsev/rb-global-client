@@ -6,62 +6,37 @@ import rightLine from '@/assets/right-line.png';
 import React, { useEffect, useState } from "react";
 import NewsEvent from "../../components/news/newsEvent";
 import {usePagesContext} from "../../providers/PagesProvider.tsx";
+import {getRbArticles} from "../../api/rb-ru/getArticles.ts";
 import {Page} from "../../types/Page.ts";
-
-const username = 'global';
-const password = 'reactvue';
-const credentials = btoa(`${username}:${password}`);
+import {RbArticle} from "../../types/RbArticle.ts";
 
 const Home = ({id}: { id: number }) => {
     const {pages} = usePagesContext();
     const currentPage = pages.find((page: Page) => page.id === id) as Page;
-    console.log(currentPage.content)
 
     // const formattedHtml = (htmlToFormat) => {
     //     const html = edjsParser.parse(htmlToFormat);
     //     return {__html: html.join(" ")};
     // }
 
-    const tag = 59229;
-    const api = (import.meta.env.MODE == 'development') ? 'https://dev.rusbase.com' : 'https://rb.ru';
-
+    const [articles, setArticles] = useState<RbArticle[]>([]);
     // TODO: fix any
-    const [articles, setArticles] = useState<any>([]);
-    // TODO: fix any
-    const [listPost, setListPost] = useState<any>([]);
+    const [post, setPost] = useState<RbArticle | null>(null);
     const [limit, setLimit] = useState<number>(5);
 
     useEffect(() => {
-        const fetchData = async () => {
-            const response = await fetch(`${api}/api/articles?tag=${tag}&limit=${limit}`, {
-                method: "GET",
-                headers: {
-                    "access-control-allow-origin" : "*",
-                    "Content-type": "application/json; charset=UTF-8",
-                    "Authorization": `Basic ${credentials}`
-                }
-            });
-            const newData = await response.json();
-            setArticles(newData.articles);
-        };
-        fetchData();
-    }, [tag, limit]);
+        getRbArticles({
+            limit, tag: 59229
+        })
+            .then((res) => setArticles(res.articles));
+    }, [limit]);
 
     useEffect(() => {
-        const fetchData = async () => {
-            const response = await fetch(`${api}/api/articles?tag=59335&limit=1`, {
-                method: "GET",
-                headers: {
-                    "access-control-allow-origin" : "*",
-                    "Content-type": "application/json; charset=UTF-8",
-                    "Authorization": `Basic ${credentials}`
-                }
-            });
-            const newData = await response.json();
-            setListPost(newData.articles);
-        };
-        fetchData();
-    }, [articles]);
+        getRbArticles({
+            limit: 1, tag: 59335
+        })
+            .then((res) => setPost(res.articles[0]));
+    }, []);
 
     const loadMore = (e: React.MouseEvent) => {
         e.preventDefault();
@@ -80,16 +55,15 @@ const Home = ({id}: { id: number }) => {
                 <img src={rightLine} alt="" />
             </div>
             {
-                // TODO: fix any
-                articles.map((item: any, index: number) => (
-                    <>
+                articles.map((item: RbArticle, index: number) => (
+                    <React.Fragment key={index}>
                         {
                             index % 5 === 0 ?
-                                <NewsHigh {...item} key={index} /> :
-                                <News {...item} key={index} />
+                                <NewsHigh article={item} /> :
+                                <News article={item} />
                         }
-                        {index === 4 && <NewsEvent {...listPost[0]} />}
-                    </>
+                        {(index === 4 && post) && <NewsEvent article={post} />}
+                    </React.Fragment>
                 ))
             }
 

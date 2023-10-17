@@ -2,14 +2,14 @@ import { Link } from 'react-router-dom';
 import './style.scss';
 // TODO: remove moment.js
 import moment from "moment";
+import {RbArticle} from "../../../types/RbArticle.ts";
 
 interface Props {
-    timestamp: number,
-    short_description: string
+    article: RbArticle;
 }
 
 const NewsEvent = (props: Props) => {
-    const {timestamp, short_description } = props;
+    const {timestamp, short_description } = props.article;
     const date = new Date(timestamp * 1000);
 
     return (
