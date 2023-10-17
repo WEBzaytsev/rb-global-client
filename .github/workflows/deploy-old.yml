@@ -1,26 +1,29 @@
 on: [push]
 name: FTP Deployer and up docker
 jobs:
-  mirror_with_sftp:
+  deploy_job:
+    runs-on: ubuntu-latest
     name: deploy
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Deploy file
+        uses: wlixcc/SFTP-Deploy-Action@v1.2.4
+        with:
+          server: ${{ secrets.SERVER_HOST }}
+          username: ${{ secrets.SERVER_USERNAME }}
+          password: ${{ secrets.SERVER_PASSWORD }}
+          remote_path: ${{ secrets.SERVER_PATH }}
+          port: 2110
+          local_path: "./"
+          delete_remote_files: true
+  mirror_with_sftp:
+    name: Send files to the server
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v2
-      - name: FTP Deployer
-        uses: sand4rt/ftp-deployer@v1.7
-        with:
-          sftp: true
-          host: ${{ secrets.SERVER_HOST }}
-          port: 2110
-          username: ${{ secrets.SERVER_USERNAME }}
-          password: ${{ secrets.SERVER_PASSWORD }}
-          remote_folder: ${{ secrets.SERVER_PATH }}
-          local_folder: "."
-          cleanup: true
-          exclude: '[".env.example", "docker-compose.yml", ".git", ".github"]'
-
-      - name: Ssh deploy
+      - name: Up container
         uses: appleboy/ssh-action@v1.0.0
         env:
           SERVER_PATH: ${{ secrets.SERVER_PATH }}
