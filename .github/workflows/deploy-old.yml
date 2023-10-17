@@ -8,7 +8,7 @@ jobs:
     - name: 🚚 Get latest code
       uses: actions/checkout@v3
     - name: 🚛 FTP Deployer
-      uses: DEPSTRCZ/FTP-Deploy@v1.0.0
+      uses: DEPSTRCZ/FTP-Deploy@v1.0.3
       with:
         sftp: true # optional
         host: ${{ secrets.SERVER_HOST }}
