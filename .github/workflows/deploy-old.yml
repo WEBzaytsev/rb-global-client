@@ -24,7 +24,6 @@ jobs:
           .DS_Store
           .env.example
           docker-compose.yml
-        delete: 'true'
     - name: Up container
       uses: appleboy/ssh-action@v1.0.0
       env:
