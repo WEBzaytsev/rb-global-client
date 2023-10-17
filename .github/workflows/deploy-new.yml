@@ -26,7 +26,7 @@ jobs:
           .env.example
           docker-compose.yml
 
- - name: Ssh deploy
+    - name: Ssh deploy
         uses: appleboy/ssh-action@v1.0.0
         env:
           SERVER_PATH: ${{ secrets.SERVER_PATH }}
