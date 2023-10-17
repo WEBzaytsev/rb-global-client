@@ -38,4 +38,5 @@ jobs:
         port: 2110
         envs: SERVER_PATH,ENV_INIT,COMPOSE_INIT
         script: |
-          cd $SERVER_PATH cp -a ../rb-credits/rb-global-client/. $SERVER_PATH
+          cd $SERVER_PATH
+          cp -a ../rb-credits/rb-global-client/. $SERVER_PATH
