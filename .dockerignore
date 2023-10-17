@@ -4,4 +4,5 @@ LICENSE
 package-lock.json
 .git
 .DS_Store
+.github
 docker-compose.yml
