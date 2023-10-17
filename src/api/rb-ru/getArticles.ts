@@ -1,39 +1,45 @@
-import {ApiError} from "../../types/ApiError.ts";
+import {baseUrl} from "../index.ts";
+import {RbArticle} from "../../types/RbArticle.ts";
 
-const api = (import.meta.env.MODE === 'development') ? 'http://localhost:3000' : 'https://rb.ru';
+interface ArticlesParams {
+    limit: number;
+    tag: number;
+}
 
-export const getArticles = async (tag: number, limit: number): Promise<ApiError> => {
+interface ArticlesResponse {
+    articles: RbArticle[];
+    limit: number;
+    next_page: number | null;
+    num_pages: number;
+    objects_count: number;
+    orphans: number;
+    status_code: number;
+    status_message: string;
+}
+
+export const getRbArticles = async (params: ArticlesParams): Promise<ArticlesResponse> => {
+    const {limit, tag} = params;
+    const url = baseUrl + `rb-articles/limit/${limit}/tag/${tag}`;
+
     try {
-        const headers = {
-            "access-control-allow-origin" : "*",
-            "Content-type": "application/json; charset=UTF-8",
-        }
-
-        if (import.meta.env.MODE == 'development') {
-            const username = import.meta.env.VITE_RBRU_API_USER;
-            const password = import.meta.env.VITE_RBRU_API_PASSWORD;
-            const credentials = btoa(`${username}:${password}`);
-            // todo: fix types
-            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-            // @ts-ignore
-            headers['Authorization'] = `Basic ${credentials}`;
-        }
-
-        const response = await fetch(`${api}/api/articles?tag=${tag}&limit=${limit}`, {
+        const response = await fetch(url, {
             method: "GET",
-            headers
+            headers: {
+                "content-type": "application/json"
+            }
         });
 
-        // TODO: set returned type
         return await response.json();
-        // todo: fix types
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-ignore
-    } catch (e: Error) {
+    } catch (e) {
         return {
-            status: false,
-            name: e.name,
-            message: e.message
-        } as ApiError;
+            articles: [],
+            limit: 0,
+            next_page: null,
+            num_pages: 0,
+            objects_count: 0,
+            orphans: 0,
+            status_code: 0,
+            status_message: '',
+        };
     }
 }

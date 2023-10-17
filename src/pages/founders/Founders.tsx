@@ -1,11 +1,12 @@
 import {useEffect, useState} from "react";
 import EventBlock from "../../components/eventBlock";
 import FounderBlock from "../../components/founderBlock";
-import {getArticles} from "../../api/rb-ru/getArticles.ts";
+import {usePagesContext} from "../../providers/PagesProvider.tsx";
+import {getRbArticles} from "../../api/rb-ru/getArticles.ts";
 /** Types */
 import {RbEvent} from "../../types/RbEvent.ts";
-import {usePagesContext} from "../../providers/PagesProvider.tsx";
 import {Page} from "../../types/Page.ts";
+import {RbArticle} from "../../types/RbArticle.ts";
 
 const Founders = ({id}: { id: number }) => {
     const {pages} = usePagesContext();
@@ -19,23 +20,8 @@ const Founders = ({id}: { id: number }) => {
 
     const [loadingArticles, setLoadingArticles] = useState(true);
     const [loadingEvents, setLoadingEvents] = useState(true);
-    // TODO: fix any
-    const [articles, setArticles] = useState<any[]>([]);
+    const [articles, setArticles] = useState<RbArticle[]>([]);
     const [events, setEvents] = useState<RbEvent[]>([]);
-
-    const fetchArticles = async (): Promise<boolean> => {
-        const rbArticles = await getArticles(59335, 3);
-
-        // todo: fix types
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-ignore
-        if (!rbArticles.articles || !rbArticles.articles.length) return false;
-        // todo: fix types
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-ignore
-        setArticles(rbArticles.articles);
-        return true;
-    };
 
     const fetchEvents = async (): Promise<boolean> => {
         // todo: fix types
@@ -54,12 +40,13 @@ const Founders = ({id}: { id: number }) => {
         fetchEvents().then((res: Response): void => {
             if (res) setLoadingEvents(false);
         });
-        // todo: fix types
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
-        fetchArticles().then((res: Response): void => {
-            if (res) setLoadingArticles(false);
-        });
+        getRbArticles({
+            limit: 3, tag: 59335
+        })
+            .then((res) => {
+                setArticles(res.articles);
+                setLoadingArticles(false)
+            });
     }, []);
 
     const sortEventsByDate = (a: RbEvent, b: RbEvent): number => new Date(a.date).getTime() - new Date(b.date).getTime();
@@ -71,16 +58,15 @@ const Founders = ({id}: { id: number }) => {
                 {
                     loadingArticles ?
                         <p>Загрузка статей...</p> :
-                        // TODO: fix any
-                        articles.map((item: any, key: number) => (
-                            <FounderBlock {...item} key={key}/>
+                        articles.map((article: RbArticle, key: number) => (
+                            <FounderBlock article={article} key={key}/>
                         ))
                 }
             </div>
 
             {
                 loadingEvents ?
-                    <p>Загрузка встречь...</p> :
+                    <p>Загрузка встреч...</p> :
                     <>
                         <div className="title title--next">Следующие встречи</div>
 
@@ -94,7 +80,7 @@ const Founders = ({id}: { id: number }) => {
                                     ))
                                 }
                             </div>
-                        ) : <p>На ближайшее время встречь не запланированно</p>}
+                        ) : <p>На ближайшее время встреч не запланированно</p>}
                     </>
             }
 
