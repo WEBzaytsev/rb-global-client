@@ -38,4 +38,4 @@ jobs:
         envs: SERVER_PATH,ENV_INIT,COMPOSE_INIT
         script: |
           cd $SERVER_PATH
-          echo '$ENV_INIT' > .env
+          echo $ENV_INIT > .env
