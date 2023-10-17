@@ -34,6 +34,6 @@ jobs:
           envs: SERVER_PATH,ENV_INIT,COMPOSE_INIT
           script: |
             cd $SERVER_PATH
-            cat > .env << EOF $ENV_INIT EOF
+            'cat > .env << EOF $ENV_INIT EOF'
             cat > docker-compose.yml << EOF $COMPOSE_INIT EOF
             docker compose down && docker compose up -d --build
