@@ -27,17 +27,17 @@ jobs:
           docker-compose.yml
 
     - name: Ssh deploy
-        uses: appleboy/ssh-action@v1.0.0
-        env:
-          SERVER_PATH: ${{ secrets.SERVER_PATH }}
-          ENV_INIT: ${{ secrets.ENV_INIT }}
-          COMPOSE_INIT: ${{ secrets.COMPOSE_INIT }}
-        with:
-          host: ${{ secrets.SERVER_HOST }}
-          username: ${{ secrets.SERVER_USERNAME }}
-          password: ${{ secrets.SERVER_PASSWORD }}
-          port: 2110
-          envs: SERVER_PATH,ENV_INIT,COMPOSE_INIT
-          script: |
-            cd $SERVER_PATH
-            echo '$ENV_INIT' > .env
+      uses: appleboy/ssh-action@v1.0.0
+      env:
+        SERVER_PATH: ${{ secrets.SERVER_PATH }}
+        ENV_INIT: ${{ secrets.ENV_INIT }}
+        COMPOSE_INIT: ${{ secrets.COMPOSE_INIT }}
+      with:
+        host: ${{ secrets.SERVER_HOST }}
+        username: ${{ secrets.SERVER_USERNAME }}
+        password: ${{ secrets.SERVER_PASSWORD }}
+        port: 2110
+        envs: SERVER_PATH,ENV_INIT,COMPOSE_INIT
+        script: |
+          cd $SERVER_PATH
+          echo '$ENV_INIT' > .env
