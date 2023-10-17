@@ -1,0 +1,45 @@
+on: push
+name: 🚀 Deploy website on push
+jobs:
+  web-deploy:
+    name: 🎉 Deploy
+    runs-on: ubuntu-latest
+    steps:
+    - name: 🚚 Get latest code
+      uses: actions/checkout@v3
+
+    - name: 📂 Sync files
+      uses: SamKirkland/FTP-Deploy-Action@v4.3.4
+      with:
+        server: ${{ secrets.SERVER_HOST }}
+        username: ${{ secrets.SERVER_USERNAME }}
+        password: ${{ secrets.SERVER_PASSWORD }}
+        protocol: ftps
+        port: 2110 # todo replace with your web hosts ftps port
+        server-dir: ${{ secrets.SERVER_PATH }}
+        dangerous-clean-slat: true
+        dry-run: true
+        exclude: |
+          **/.git*
+          **/.git*/**
+          **/node_modules/**
+          .env.example
+          docker-compose.yml
+
+ - name: Ssh deploy
+        uses: appleboy/ssh-action@v1.0.0
+        env:
+          SERVER_PATH: ${{ secrets.SERVER_PATH }}
+          ENV_INIT: ${{ secrets.ENV_INIT }}
+          COMPOSE_INIT: ${{ secrets.COMPOSE_INIT }}
+        with:
+          host: ${{ secrets.SERVER_HOST }}
+          username: ${{ secrets.SERVER_USERNAME }}
+          password: ${{ secrets.SERVER_PASSWORD }}
+          port: 2110
+          envs: SERVER_PATH,ENV_INIT,COMPOSE_INIT
+          script: |
+            cd $SERVER_PATH
+            'cat > .env << EOF $ENV_INIT EOF'
+            cat > docker-compose.yml << EOF $COMPOSE_INIT EOF
+            docker compose down && docker compose up -d --build
