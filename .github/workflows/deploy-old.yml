@@ -17,7 +17,7 @@ jobs:
         compress: true                             # Compression
         localDir: '.'                              # Required, Absolute or relative to cwd.
         remoteDir: ${{ secrets.SERVER_PATH }}
-        exclude: '.git*,.DS_Store,.github*, docker-compose.yml, .env*' 
+        exclude: '*./.git/*,.DS_Store,*./.github, docker-compose.yml, .env*' 
         removeExtraFilesOnServer: true
     - name: Up container
       uses: appleboy/ssh-action@v1.0.0
