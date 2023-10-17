@@ -1,42 +1,37 @@
 on: [push]
 name: FTP Deployer and up docker
 jobs:
-  deploy_job:
-    runs-on: ubuntu-latest
-    name: deploy
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-      - name: Deploy file
-        uses: wlixcc/SFTP-Deploy-Action@v1.2.4
-        with:
-          server: ${{ secrets.SERVER_HOST }}
-          username: ${{ secrets.SERVER_USERNAME }}
-          password: ${{ secrets.SERVER_PASSWORD }}
-          remote_path: ${{ secrets.SERVER_PATH }}
-          port: 2110
-          local_path: "./"
-          delete_remote_files: true
-  mirror_with_sftp:
-    name: Send files to the server
+  web-deploy:
+    name: 🎉 Deploy
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-      - name: Up container
-        uses: appleboy/ssh-action@v1.0.0
-        env:
-          SERVER_PATH: ${{ secrets.SERVER_PATH }}
-          ENV_INIT: ${{ secrets.ENV_INIT }}
-          COMPOSE_INIT: ${{ secrets.COMPOSE_INIT }}
-        with:
-          host: ${{ secrets.SERVER_HOST }}
-          username: ${{ secrets.SERVER_USERNAME }}
-          password: ${{ secrets.SERVER_PASSWORD }}
-          port: 2110
-          envs: SERVER_PATH,ENV_INIT,COMPOSE_INIT
-          script: |
-            cd $SERVER_PATH
-            'cat > .env << EOF $ENV_INIT EOF'
-            cat > docker-compose.yml << EOF $COMPOSE_INIT EOF
-            docker compose down && docker compose up -d --build
+    - name: 🚚 Get latest code
+      uses: actions/checkout@v3
+    - name: 🚛 FTP Deployer
+      uses: DEPSTRCZ/FTP-Deploy@v1.0.0
+      with:
+        sftp: true # optional
+        host: ${{ secrets.SERVER_HOST }}
+        port: 2110 # optional, default is: 21
+        username: ${{ secrets.SERVER_USERNAME }}
+        password: ${{ secrets.SERVER_PASSWORD }}
+        local_folder: ./ # optional, local path, default is: dist
+        delete_remote: true # optional, remove existing files inside FTP remote folder
+        remote_folder: ${{ secrets.SERVER_PATH }}
+        exclude: '[".env.example", "docker-compose.yml", ".git", ".github"]'
+
+    - name: Up container
+      uses: appleboy/ssh-action@v1.0.0
+      env:
+        SERVER_PATH: ${{ secrets.SERVER_PATH }}
+        ENV_INIT: ${{ secrets.ENV_INIT }}
+        COMPOSE_INIT: ${{ secrets.COMPOSE_INIT }}
+      with:
+        host: ${{ secrets.SERVER_HOST }}
+        username: ${{ secrets.SERVER_USERNAME }}
+        password: ${{ secrets.SERVER_PASSWORD }}
+        port: 2110
+        envs: SERVER_PATH,ENV_INIT,COMPOSE_INIT
+        script: |
+          cd $SERVER_PATH
+          echo '$ENV_INIT' > .env
